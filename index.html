@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DevOps Lab Mid | Group Project</title>
+<meta name="description" content="DevOps Lab Mid group page - COMSATS University Islamabad, Abbottabad Campus">
+<style>
+  :root {
+    --bg: #070b18;
+    --bg2: #0c1226;
+    --card: #111936;
+    --border: #212d57;
+    --text: #e8ecf8;
+    --muted: #9aa6c9;
+    --accent: #4f8cff;
+    --accent2: #7c5cff;
+    --accent3: #22d3b0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(7, 11, 24, .8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .container {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 62px;
+  }
+  .logo { font-weight: 700; font-size: 18px; letter-spacing: .02em; }
+  .logo span { color: var(--accent3); }
+  .links { display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
+  .links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    text-align: center;
+    padding: 110px 20px 90px;
+    background:
+      radial-gradient(700px 350px at 20% 0%, rgba(79,140,255,.25), transparent 70%),
+      radial-gradient(600px 350px at 85% 10%, rgba(124,92,255,.22), transparent 70%),
+      var(--bg);
+  }
+  .hero::after {
+    content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 56px 56px;
+    opacity: .12;
+    mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero > * { position: relative; z-index: 1; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent3);
+    border: 1px solid var(--border);
+    background: rgba(17,25,54,.7);
+    border-radius: 999px; padding: 6px 16px; margin-bottom: 24px;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent3);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(34,211,176,.6); }
+    100% { box-shadow: 0 0 0 10px rgba(34,211,176,0); }
+  }
+  h1 {
+    font-size: clamp(36px, 7vw, 68px);
+    line-height: 1.1; font-weight: 800;
+    margin-bottom: 18px;
+  }
+  .grad {
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.sub {
+    max-width: 620px; margin: 0 auto 34px;
+    color: var(--muted); font-size: 18px;
+  }
+  .btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    padding: 12px 26px; border-radius: 12px; font-weight: 600; font-size: 15px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.primary {
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    box-shadow: 0 8px 24px rgba(79,140,255,.3);
+  }
+  .btn.ghost { border: 1px solid var(--border); background: rgba(17,25,54,.6); }
+
+  .stats {
+    display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+    margin-top: 56px;
+  }
+  .stat b { display: block; font-size: 30px; }
+  .stat span { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+
+  /* SECTIONS */
+  section { padding: 84px 0; }
+  section.alt { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .eyebrow {
+    color: var(--accent); font-size: 13px; letter-spacing: .14em;
+    text-transform: uppercase; font-weight: 600; margin-bottom: 10px;
+  }
+  h2.title { font-size: clamp(26px, 4vw, 38px); margin-bottom: 14px; }
+  .lead { color: var(--muted); max-width: 640px; margin-bottom: 44px; }
+
+  /* TEAM */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 30px 22px;
+    text-align: center;
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 16px 40px rgba(79,140,255,.15);
+  }
+  .avatar {
+    width: 84px; height: 84px; border-radius: 50%;
+    margin: 0 auto 18px;
+    display: grid; place-items: center;
+    font-size: 30px; font-weight: 700; color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    box-shadow: 0 0 0 4px rgba(79,140,255,.15);
+  }
+  .card:nth-child(2) .avatar { background: linear-gradient(135deg, var(--accent2), #e05cff); }
+  .card:nth-child(3) .avatar { background: linear-gradient(135deg, var(--accent3), var(--accent)); }
+  .card:nth-child(4) .avatar { background: linear-gradient(135deg, #ff8a4f, var(--accent2)); }
+  .card h3 { font-size: 18px; margin-bottom: 4px; }
+  .role { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .reg {
+    display: inline-block;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 13px; color: var(--accent3);
+    background: #0a1022; border: 1px solid var(--border);
+    border-radius: 8px; padding: 4px 12px;
+  }
+
+  /* LIFECYCLE */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px;
+  }
+  .step {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px 20px; position: relative;
+  }
+  .num {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    color: var(--accent2); font-size: 13px; font-weight: 700; margin-bottom: 8px;
+  }
+  .step h3 { font-size: 17px; margin-bottom: 6px; }
+  .step p { color: var(--muted); font-size: 14px; }
+
+  /* TOOLS */
+  .tools { display: flex; flex-wrap: wrap; gap: 12px; }
+  .tool {
+    padding: 10px 20px; border-radius: 999px;
+    background: var(--card); border: 1px solid var(--border);
+    font-size: 14px; font-weight: 500;
+    transition: border-color .2s, transform .2s;
+  }
+  .tool:hover { border-color: var(--accent3); transform: translateY(-2px); }
+
+  /* TERMINAL */
+  .terminal {
+    background: #050813; border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden; max-width: 680px; margin-top: 36px;
+    font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px;
+  }
+  .term-bar {
+    display: flex; gap: 7px; padding: 12px 16px;
+    background: #0c1226; border-bottom: 1px solid var(--border);
+  }
+  .term-bar i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+  .term-bar i:nth-child(1) { background: #ff5f56; }
+  .term-bar i:nth-child(2) { background: #ffbd2e; }
+  .term-bar i:nth-child(3) { background: #27c93f; }
+  .term-body { padding: 18px 20px; color: #c9d4f5; }
+  .term-body .p { color: var(--accent3); }
+  .term-body .c { color: var(--muted); }
+
+  footer {
+    text-align: center; color: var(--muted); font-size: 14px;
+    padding: 40px 20px; border-top: 1px solid var(--border);
+  }
+  footer b { color: var(--text); }
+
+  /* reveal animation */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s; }
+  .reveal.show { opacity: 1; transform: none; }
+
+  @media (max-width: 640px) {
+    .links { display: none; }
+    section { padding: 60px 0; }
+    .hero { padding: 80px 20px 64px; }
+    .stats { gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <a href="#top" class="logo">DevOps<span>.</span>Lab</a>
+      <div class="links">
+        <a href="#team">Team</a>
+        <a href="#lifecycle">Lifecycle</a>
+        <a href="#tools">Tools</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <span class="badge"><span class="dot"></span> DevOps Lab &middot; Mid Term</span>
+    <h1>Build. Ship. <span class="grad">Automate.</span></h1>
+    <p class="sub">
+      Our DevOps Lab Mid group page. Four students, one goal: learning how
+      modern teams build, test and deliver software faster and more reliably.
+    </p>
+    <div class="btns">
+      <a href="#team" class="btn primary">Meet the Team</a>
+      <a href="#lifecycle" class="btn ghost">DevOps Lifecycle</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>4</b><span>Members</span></div>
+      <div class="stat"><b>FA23</b><span>Batch</span></div>
+      <div class="stat"><b>BCS</b><span>Program</span></div>
+    </div>
+  </header>
+
+  <section id="team">
+    <div class="container">
+      <div class="eyebrow reveal">The Team</div>
+      <h2 class="title reveal">Our Group Members</h2>
+      <p class="lead reveal">
+        COMSATS University Islamabad, Abbottabad Campus &mdash; Bachelor of Computer Science.
+      </p>
+      <div class="grid">
+        <div class="card reveal">
+          <div class="avatar">M</div>
+          <h3>Malik Obaid Ur Rehman</h3>
+          <div class="role">Group Member</div>
+          <span class="reg">FA23-BCS-055</span>
+        </div>
+        <div class="card reveal">
+          <div class="avatar">H</div>
+          <h3>Hassan Lodhi</h3>
+          <div class="role">Group Member</div>
+          <span class="reg">FA23-BCS-048</span>
+        </div>
+        <div class="card reveal">
+          <div class="avatar">I</div>
+          <h3>Irfan</h3>
+          <div class="role">Group Member</div>
+          <span class="reg">FA23-BCS-050</span>
+        </div>
+        <div class="card reveal">
+          <div class="avatar">R</div>
+          <h3>Rayyan</h3>
+          <div class="role">Group Member</div>
+          <span class="reg">FA23-BCS-078</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lifecycle" class="alt">
+    <div class="container">
+      <div class="eyebrow reveal">How it works</div>
+      <h2 class="title reveal">The DevOps Lifecycle</h2>
+      <p class="lead reveal">
+        DevOps joins development and operations into one continuous loop, so ideas reach users quickly and safely.
+      </p>
+      <div class="steps">
+        <div class="step reveal"><div class="num">01</div><h3>Plan</h3><p>Define the work, track tasks and agree on goals as a team.</p></div>
+        <div class="step reveal"><div class="num">02</div><h3>Code</h3><p>Write code and keep every change in version control with Git.</p></div>
+        <div class="step reveal"><div class="num">03</div><h3>Build</h3><p>Compile and package the application automatically on each change.</p></div>
+        <div class="step reveal"><div class="num">04</div><h3>Test</h3><p>Run automated tests early to catch bugs before they reach users.</p></div>
+        <div class="step reveal"><div class="num">05</div><h3>Release</h3><p>Prepare a stable, versioned build that is ready to go live.</p></div>
+        <div class="step reveal"><div class="num">06</div><h3>Deploy</h3><p>Push the release to servers or containers with repeatable steps.</p></div>
+        <div class="step reveal"><div class="num">07</div><h3>Operate</h3><p>Keep the application running smoothly in production.</p></div>
+        <div class="step reveal"><div class="num">08</div><h3>Monitor</h3><p>Watch logs and metrics, then feed what we learn back into planning.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="container">
+      <div class="eyebrow reveal">Toolbox</div>
+      <h2 class="title reveal">Tools We Work With</h2>
+      <p class="lead reveal">The common tools behind a modern DevOps workflow.</p>
+      <div class="tools reveal">
+        <span class="tool">Git</span>
+        <span class="tool">GitHub</span>
+        <span class="tool">GitHub Actions</span>
+        <span class="tool">Docker</span>
+        <span class="tool">Linux</span>
+        <span class="tool">CI/CD</span>
+        <span class="tool">YAML</span>
+        <span class="tool">Bash</span>
+      </div>
+
+      <div class="terminal reveal">
+        <div class="term-bar"><i></i><i></i><i></i></div>
+        <div class="term-body">
+          <div><span class="p">$</span> git add .</div>
+          <div><span class="p">$</span> git commit -m "DevOps lab mid"</div>
+          <div><span class="p">$</span> git push origin main</div>
+          <div class="c"># deployed &#10003;</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p><b>DevOps Lab Mid</b> &middot; COMSATS University Islamabad, Abbottabad Campus</p>
+    <p style="margin-top:6px">&copy; 2026 Malik Obaid Ur Rehman, Hassan Lodhi, Irfan &amp; Rayyan</p>
+  </footer>
+
+<script>
+  // fade-in on scroll
+  const items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    items.forEach((el, i) => { el.style.transitionDelay = (i % 4) * 80 + 'ms'; io.observe(el); });
+  } else {
+    items.forEach(el => el.classList.add('show'));
+  }
+</script>
+</body>
+</html>
